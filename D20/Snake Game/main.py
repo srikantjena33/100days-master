@@ -33,10 +33,20 @@ while game_is_on:
     #Detect collisions wity Food
     if snake.head.distance(food) < 15:
         food.refresh()
+        snake.extend()
         scoreboard.increase_score()
         
-        #Detect collisions wity Wall
-        
+    #Detect collisions wity Wall
+    if snake.head.xcor() > 290 or snake.head.xcor() < -290 or snake.head.ycor() > 290 or snake.head.ycor() < -290:
+        game_is_on = False
+        scoreboard.game_over()
+
+    #Detect collisions wity tail
+    for segment in snake.segments[1:]:
+        if snake.head.distance(segment) < 10:
+            game_is_on = False
+            scoreboard.game_over()
+    
     
 
 screen.exitonclick()
